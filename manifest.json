@@ -1,0 +1,33 @@
+{
+    "name": "connectea",
+    "description": "Gets the tea from charts on the site",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_icon": "icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://connect.det.wa.edu.au/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "permissions": [
+        "scripting"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icon.png",
+                "thing.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}
