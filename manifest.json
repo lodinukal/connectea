@@ -23,7 +23,8 @@
         {
             "resources": [
                 "icon.png",
-                "thing.js"
+                "thing.js",
+                "style.css"
             ],
             "matches": [
                 "<all_urls>"

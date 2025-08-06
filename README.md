@@ -6,7 +6,10 @@ Loads chart information by hooking the highcharts library, and displays it withi
 
 # Functionality
 - Adds quartile information to all charts in assessment outlines.
-- Adds a button to calculate the unscaled TEA for ATAR subjects and orders them by contribution to the TEA.
+- Adds a button to calculate the TEA for ATAR subjects and orders them by contribution to the TEA.
+- Allows for custom scaling information to be entered.
+- Allows for custom target percentages to be set and for next assessment averages to be calculated based on the remaining weightings.
+- Automatically expands the assessment outlines to show all assessments within all subjects.
 
 # Privacy Policy
 

@@ -1,0 +1,43 @@
+button {
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    color: #2c3e50;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background-color: #d5dbdb;
+}
+
+button.selected {
+    background-color: #3498db;
+    color: white;
+    border-color: #2980b9;
+}
+
+button.negative {
+    background-color: #e74c3c;
+    color: white;
+    border-color: #c0392b;
+}
+
+input {
+    width: 60px;
+    padding: 4px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+textarea {
+    width: 100%;
+    padding: 4px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 12px;
+    resize: vertical;
+}
