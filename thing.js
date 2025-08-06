@@ -1,11 +1,40 @@
+var calcUsable = false;
+
+function round(num, precision = 3) {
+    const factor = Math.pow(10, precision);
+    return Math.round(num * factor) / factor;
+}
+
 function calc() {
+    if (!calcUsable) {
+        alert("Please wait for the page to load before clicking the button.");
+        return {};
+    }
+    let semester1Scores = {};
     let scores = {};
     for (let c of Highcharts.charts) {
         if (c == undefined) continue;
         const nameOfSubject = c.container.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[0].children[0].innerText;
         const subject = nameOfSubject.split(" - ")[0];
+        const semester = nameOfSubject.split(" - ")[1];
+        // needs "ATAR Year 12" otherwise its not a valid subject
+        if (!subject.includes("ATAR Year 12")) {
+            continue;
+        }
+
         const cleanedSubject = subject.replace("ATAR Year 12", "").trim();
-        scores[cleanedSubject] = c.series[1].dataMax;
+        const thisScore = c.series[1].dataMax;
+        // prefer not to use the semester 1 score
+        if (semester === "Semester 1") {
+            semester1Scores[cleanedSubject] = thisScore;
+            continue;
+        }
+        scores[cleanedSubject] = thisScore;
+    }
+    for (const subject in semester1Scores) {
+        if (scores[subject] === undefined) {
+            scores[subject] = semester1Scores[subject];
+        }
     }
     return scores;
 }
@@ -40,14 +69,14 @@ function displayScores(scores, parentElement) {
         }
         if (bonus) {
             total += score * bonus;
-            listItem.innerText += ` (Bonus: ${Math.round(score * bonus * 1000) / 1000})`;
+            listItem.innerText += ` (Bonus: ${round(score * bonus)})`;
         }
         subjectCount++;
     }
     parentElement.appendChild(scoreList);
 
     const totalScore = document.createElement("p");
-    totalScore.innerText = `TEA: ${Math.round(total * 1000) / 1000}`;
+    totalScore.innerText = `TEA: ${round(total)}`;
     parentElement.appendChild(totalScore);
 }
 
@@ -87,7 +116,12 @@ function createFloatingFrame() {
 createFloatingFrame();
 
 function stringifyScores(scores) {
-    return `low: ${scores.low}, q1: ${scores.q1}, median: ${scores.median}, q3: ${scores.q3}, high: ${scores.high}`;
+    const low = round(scores.low);
+    const q1 = round(scores.q1);
+    const median = round(scores.median);
+    const q3 = round(scores.q3);
+    const high = round(scores.high);
+    return `low: ${low}, q1: ${q1}, median: ${median}, q3: ${q3}, high: ${high}`;
 }
 
 function makeHighChartProxy() {
@@ -106,6 +140,7 @@ function makeHighChartProxy() {
 if (typeof Highcharts === "undefined") {
     const interval = setInterval(() => {
         if (typeof Highcharts !== "undefined") {
+            calcUsable = true;
             clearInterval(interval);
             makeHighChartProxy();
         }
