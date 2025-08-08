@@ -16,13 +16,9 @@
             ]
         }
     ],
-    "permissions": [
-        "scripting"
-    ],
     "web_accessible_resources": [
         {
             "resources": [
-                "icon.png",
                 "thing.js",
                 "style.css"
             ],
